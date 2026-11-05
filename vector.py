@@ -79,3 +79,4 @@ class Vector3:
 
 
 if __name__ == "__main__":
+    print(Vector3(1, 2, 3))
