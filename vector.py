@@ -1,4 +1,4 @@
-
+from math import hypot
 
 class Vector3:
     """Vector (x, y, z) of real numbers."""
@@ -45,30 +45,37 @@ class Vector3:
     def __iter__(self):
         return iter((self.x, self.y, self.z))
     
-    def __sub__ (self, other):
+    def __sub__(self, other):
         if not isinstance(other, Vector3):
             return NotImplemented
         return Vector3(self.x - other.x, self.y - other.y,
                        self.z - other.z)
 
-    def __neg__(self, other):
-        if not isinstance(other, Vector3):
-            return NotImplemented
+    def __neg__(self):
         return Vector3(-self.x, -self.y, -self.z)
 
-    def __truediv__(self, other):
-        if not isintance(other, Vector3):
+    def __truediv__(self, k):
+        if not isinstance(k, (int, float)):
             return NotImplemented
-        return Vector3(self.x / other.x, self.y / other.y, self.z /other.z)
+        return Vector3(self.x / k, self.y / k, self.z / k)
 
     def __matmul__(self, other):
         if not isinstance(other, Vector3):
             return NotImplemented
-        return Vector3(self.x * other.x + self.y * other.y + self.z * other.z)
-    
+        return self.x * other.x + self.y * other.y + self.z * other.z
+
+    def __abs__(self):
+        return hypot(self.x, self.y, self.z)
+
+    def cross(self, other):
+        if not isinstance(other, Vector3):
+            return NotImplemented
+        return Vector3(
+            self.y * other.z - self.z * other.y,
+            self.z * other.x - self.x * other.z,
+            self.x * other.y - self.y * other.x,
+        )
 
 
 
 if __name__ == "__main__":
-    v = Vector3(1,2,3)
-    print(v)
